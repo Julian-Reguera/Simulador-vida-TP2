@@ -1,0 +1,16 @@
+- en SpeciesTableModel al hacer el reset deberia eliminar las filas donde no queda ningun animal vivo ? (se eliminan las filas cuando ya no queda ningun animal de ese tipo)
+11-como puedo obtener el JFrame en el que esta contenido un JPanel
+
+
+1) por ejemplo al crear los JDialog como el de cambiar regiones hay que usar la funcion invokelater para poner la visibilidad a true? (ControlPane 118/113)
+2)como ajusto los tamaños de la tabla y de el del texto
+-----------------------------------------------------------------------------
+1-Todas las interacciones con la gui en eventos tiene que hacerse en el hilo seguro invokeLater()
+5-en el Control panel el quit que usa en el boton de salir hay que cambiarlo por ViewUtil.quit
+---------------------------------------------------------------------------------
+FALLOS
+1)la ventana no se cierra al darle a la x
+2) poner maximo y prefered size al slider
+3)no carga la configuracion inicial en modo GUI
+4)cosas que puso para modificar en la practica 1
+5)el en vez de usar arrays de Objects y hacer castings creaba un tipo Record y lo modificaba ahi 
