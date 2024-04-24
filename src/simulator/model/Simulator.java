@@ -16,8 +16,6 @@ public class Simulator implements JSONable, Observable<EcoSysObserver> {
 	private Factory<Region> _regions_factory;
 	private RegionManager _gestor;
 	private List<Animal> _animales;
-	private List<Animal> _aux_animales;
-	private boolean _enForEach; // cuando esto esté a true se está dentro de un for each
 	private int _cols, _rows, _width, _height; // raro guardarlo si no se usa pero ya lo tiene regionManager
 	private double _time;
 
@@ -42,12 +40,8 @@ public class Simulator implements JSONable, Observable<EcoSysObserver> {
 	}
 
 	private void add_animal(Animal a) {
-		if (_enForEach)
-			_aux_animales.add(a);
-		else {
-			_animales.add(a);
-			_gestor.register_animal(a);
-		}
+		_animales.add(a);
+		_gestor.register_animal(a);
 		
 		notify_on_animalAdded(a);
 	}
@@ -70,6 +64,7 @@ public class Simulator implements JSONable, Observable<EcoSysObserver> {
 
 	public void advance(double dt) {
 		_time += dt;
+		List<Animal> listaAuxiliar = new LinkedList<>();
 		eliminarCadaveres();
 
 		for (Animal a : _animales) {
@@ -79,11 +74,13 @@ public class Simulator implements JSONable, Observable<EcoSysObserver> {
 
 		_gestor.update_all_regions(dt);
 
-		setEnForEach(true); // para poder anadir un animal en mitad del for each
 		for (Animal a : _animales)
 			if (a.is_pregnant())
-				add_animal(a.deliver_baby());
-		setEnForEach(false);
+				listaAuxiliar.add(a.deliver_baby());
+		
+		for(Animal a: listaAuxiliar){
+			this.add_animal(a);
+		}
 		
 		notify_on_advance(dt);
 	}
@@ -104,31 +101,12 @@ public class Simulator implements JSONable, Observable<EcoSysObserver> {
 		_width = width;
 		_height = height;
 		_animales = new LinkedList<Animal>();
-		_aux_animales = new LinkedList<Animal>(); // para poder añadir en un forEach
-		_enForEach = false;
 		_gestor = new RegionManager(cols, rows, width, height);
 		
 		notify_on_reset();
 	}
 
 	/* FUNCIONES PRIVADAS HECHAS POR EL ALUMNO */
-
-	// para poder anadir obejas en mitad de un bucle
-	private void setEnForEach(boolean entrada) {
-		if (!entrada && _enForEach) // paso los elementos de la lista auxiliar a la lista de animales
-		{
-			Iterator<Animal> iterador = _aux_animales.iterator();
-			while (iterador.hasNext()) {
-				Animal a = iterador.next();
-				_animales.add(a);
-				_gestor.register_animal(a);
-				iterador.remove();
-			}
-		}
-
-		_enForEach = entrada;
-	}
-
 	private void eliminarCadaveres() {
 		Iterator<Animal> i = _animales.iterator();
 
