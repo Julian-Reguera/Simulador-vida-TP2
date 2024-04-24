@@ -119,8 +119,18 @@ class ControlPanel extends JPanel {
 			setEnableButtons(false);
 			_stopped = false;
 			int n = (Integer)_spiner.getValue();
-			double dt = Double.parseDouble(_textoDt.getText());
-			SwingUtilities.invokeLater(() -> run_sim(n,dt));
+			double dt = Main._dt;
+			
+			try {
+				 dt = Double.parseDouble(_textoDt.getText());
+			}catch(NumberFormatException escepcion)
+			{
+				_textoDt.setText(Main._dt.toString());
+				dt = Main._dt;
+			}
+			
+			double aux = dt;
+			SwingUtilities.invokeLater(() -> run_sim(n,aux));
 		});
 		
 		_stopButton.addActionListener((e)->{

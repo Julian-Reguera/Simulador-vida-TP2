@@ -134,42 +134,56 @@ class ChangeRegionsDialog extends JDialog implements EcoSysObserver {
 	
 	private void hacerCambiosModelo()
 	{
-		JSONObject regions = new JSONObject();
-		JSONArray array = new JSONArray();
-		JSONObject region = new JSONObject();
-		JSONObject spec = new JSONObject();
-		JSONObject data = new JSONObject();
-		JSONArray col = new JSONArray();
-		JSONArray row = new JSONArray();
-		
-		for(int i = 0; i< _dataTableModel.getRowCount();i++)
+		if(_fromColModel.getSelectedItem() != null && _toColModel.getSelectedItem() != null && _fromRowModel.getSelectedItem() != null && _toRowModel.getSelectedItem() != null)
 		{
-			data.put((String)_dataTableModel.getValueAt(i, 0),_dataTableModel.getValueAt(i, 1));
-		}
-		
-		spec.put("type", (String)_regionsModel.getSelectedItem());
-		spec.put("data", data);
-		
-		int colInicio = Integer.parseInt((String) _fromColModel.getSelectedItem());
-		int colFinal = Integer.parseInt((String) _toColModel.getSelectedItem());
-		int rowInicio = Integer.parseInt((String) _fromRowModel.getSelectedItem());
-		int rowFinal = Integer.parseInt((String) _toRowModel.getSelectedItem());
-		
-		col.put(colInicio);
-		col.put(colFinal);
-		row.put(rowInicio);
-		row.put(rowFinal);
-		
-		region.put("col", col);
-		region.put("row", row);
-		region.put("spec", spec);
-		
-		array.put(region);
-		
-		regions.put("regions", array);
-		
-		System.out.println(regions.toString(2));
-		_ctrl.set_regions(regions);
+			JSONObject regions = new JSONObject();
+			JSONArray array = new JSONArray();
+			JSONObject region = new JSONObject();
+			JSONObject spec = new JSONObject();
+			JSONObject data = new JSONObject();
+			JSONArray col = new JSONArray();
+			JSONArray row = new JSONArray();
+			
+			for(int i = 0; i< _dataTableModel.getRowCount();i++)
+			{
+				data.put((String)_dataTableModel.getValueAt(i, 0),_dataTableModel.getValueAt(i, 1));			
+			}
+			
+			spec.put("type", (String)_regionsModel.getSelectedItem());
+			spec.put("data", data);
+			
+			int colInicio = Integer.parseInt((String) _fromColModel.getSelectedItem());
+			int colFinal = Integer.parseInt((String) _toColModel.getSelectedItem());
+			int rowInicio = Integer.parseInt((String) _fromRowModel.getSelectedItem());
+			int rowFinal = Integer.parseInt((String) _toRowModel.getSelectedItem());
+			
+			col.put(colInicio);
+			col.put(colFinal);
+			row.put(rowInicio);
+			row.put(rowFinal);
+			
+			region.put("col", col);
+			region.put("row", row);
+			region.put("spec", spec);
+			
+			array.put(region);
+			
+			regions.put("regions", array);
+			
+			try {
+				_ctrl.set_regions(regions);
+			}
+			catch (Exception e){
+				SwingUtilities.invokeLater(()->{
+					ViewUtils.showErrorMsg(e.getMessage());
+				});
+			}
+			
+		}else{
+			SwingUtilities.invokeLater(()->{
+				ViewUtils.showErrorMsg("Error faltan valores por introducir");
+			});
+		}	
 	}
 	
 	private void iniciaMoledos()
