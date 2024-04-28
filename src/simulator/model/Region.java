@@ -40,11 +40,10 @@ public abstract class Region implements FoodSupplier, RegionInfo, Entity {
 
 		return o;
 	}
-	
-	public List<AnimalInfo> getAnimalsInfo() {
-		return new ArrayList<>(_animales);  
-	}
 
+	public List<AnimalInfo> getAnimalsInfo() {
+		return new ArrayList<>(_animales);
+	}
 
 	/* METODOS PROTECTED AÑADIDOS POR EL ALUMNO */
 	protected int count(Predicate<Animal> pred) {

@@ -21,10 +21,9 @@ public class DefaultRegion extends Region {
 	@Override
 	public void update(double dt) {
 	}
-	
+
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Default region";
 	}
 

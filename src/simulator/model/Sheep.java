@@ -20,14 +20,13 @@ public class Sheep extends Animal {
 
 	public Sheep(SelectionStrategy mate_strategy, SelectionStrategy danger_strategy, Vector2D pos) {
 		super("Sheep", Diet.HERBIVORE, INIT_VISIONRANGE, INIT_SPEED, mate_strategy, pos);
-		
-		if(danger_strategy != null)
-		{
+
+		if (danger_strategy != null) {
 			_danger_strategy = danger_strategy;
 			_danger_source = null;
-		}
-		else throw new IllegalArgumentException("danger_strategy no puede ser null");
-		
+		} else
+			throw new IllegalArgumentException("danger_strategy no puede ser null");
+
 	}
 
 	protected Sheep(Sheep p1, Animal p2) {

@@ -15,14 +15,12 @@ public interface EcoSysObserver {
 }
 
 /*
- 
- map: gestor de regiones
- animals: lista de animales
- a: un animal
- r: region
- time: el tipo actual de la simulaicon
- dt: delta-time en el paso de simulación correspondiente
- 
- SE USA MapInfo AnimalInfo y RegionInfo para evitar alteriar el estado de los animales desde fuera
- 
+ * 
+ * map: gestor de regiones animals: lista de animales a: un animal r: region
+ * time: el tipo actual de la simulaicon dt: delta-time en el paso de simulación
+ * correspondiente
+ * 
+ * SE USA MapInfo AnimalInfo y RegionInfo para evitar alteriar el estado de los
+ * animales desde fuera
+ * 
  */

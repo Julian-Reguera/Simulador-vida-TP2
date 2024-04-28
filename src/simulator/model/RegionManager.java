@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import simulator.misc.Vector2D;
 import simulator.model.MapInfo.RegionData;
 
-public class RegionManager implements AnimalMapView{
+public class RegionManager implements AnimalMapView {
 	private Map<Animal, Region> _animal_region;
 	private int _width;
 	private int _height;
@@ -175,31 +175,29 @@ public class RegionManager implements AnimalMapView{
 	public Iterator<RegionData> iterator() {
 		return new RegionIterator();
 	}
-	
-	private class RegionIterator implements Iterator<RegionData>{
+
+	private class RegionIterator implements Iterator<RegionData> {
 		private int _x;
 		private int _y;
-		
-		public RegionIterator()
-		{
+
+		public RegionIterator() {
 			_x = -1;
 			_y = 0;
 		}
-		
+
 		@Override
 		public boolean hasNext() {
-			return _x+1 < _cols || _y+1 < _rows;
+			return _x + 1 < _cols || _y + 1 < _rows;
 		}
 
 		@Override
 		public RegionData next() {
 			_x++;
-			if(_x >= _cols)
-			{
+			if (_x >= _cols) {
 				_x = 0;
 				_y++;
 			}
-			return new RegionData(_y,_x,_regions[_y][_x]);
+			return new RegionData(_y, _x, _regions[_y][_x]);
 		}
 	}
 }

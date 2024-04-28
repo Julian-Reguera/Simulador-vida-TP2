@@ -23,11 +23,12 @@ public class DynamicSupplyRegionBuilder extends Builder<Region> {
 		double food = 1000.0;
 		int contador = 0;
 
-		if (data.has("factor")) contador++;
+		if (data.has("factor"))
+			contador++;
 		factor = data.optDouble("factor", 2.0);
 
-
-		if (data.has("food")) contador ++;
+		if (data.has("food"))
+			contador++;
 		food = data.optDouble("food");
 
 		if (data.length() != contador)

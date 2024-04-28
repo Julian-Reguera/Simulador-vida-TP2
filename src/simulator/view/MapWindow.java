@@ -21,7 +21,7 @@ class MapWindow extends JFrame implements EcoSysObserver {
 	private AbstractMapViewer _viewer;
 	private Frame _parent;
 	private MapViewer _visor;
-	
+
 	MapWindow(Frame parent, Controller ctrl) {
 		super("[MAP VIEWER]");
 		_ctrl = ctrl;
@@ -29,7 +29,7 @@ class MapWindow extends JFrame implements EcoSysObserver {
 		intiGUI();
 		ctrl.addObserver(this);
 	}
-	
+
 	private void intiGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
@@ -38,7 +38,8 @@ class MapWindow extends JFrame implements EcoSysObserver {
 		addWindowListener(new WindowListener() {
 
 			@Override
-			public void windowOpened(WindowEvent e) {}
+			public void windowOpened(WindowEvent e) {
+			}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -46,26 +47,30 @@ class MapWindow extends JFrame implements EcoSysObserver {
 			}
 
 			@Override
-			public void windowClosed(WindowEvent e) {}
+			public void windowClosed(WindowEvent e) {
+			}
 
 			@Override
-			public void windowIconified(WindowEvent e) {}
+			public void windowIconified(WindowEvent e) {
+			}
 
 			@Override
-			public void windowDeiconified(WindowEvent e) {	}
+			public void windowDeiconified(WindowEvent e) {
+			}
 
 			@Override
-			public void windowActivated(WindowEvent e) {}
+			public void windowActivated(WindowEvent e) {
+			}
 
 			@Override
-			public void windowDeactivated(WindowEvent e) {}
-			});
-	
+			public void windowDeactivated(WindowEvent e) {
+			}
+		});
+
 		pack();
 		if (_parent != null)
-		setLocation(
-		_parent.getLocation().x + _parent.getWidth()/2 - getWidth()/2,
-		_parent.getLocation().y + _parent.getHeight()/2 - getHeight()/2);
+			setLocation(_parent.getLocation().x + _parent.getWidth() / 2 - getWidth() / 2,
+					_parent.getLocation().y + _parent.getHeight() / 2 - getHeight() / 2);
 		setResizable(false);
 		setVisible(true);
 	}
@@ -76,7 +81,7 @@ class MapWindow extends JFrame implements EcoSysObserver {
 			_visor.reset(time, map, animals);
 			pack();
 		});
-		
+
 	}
 
 	@Override

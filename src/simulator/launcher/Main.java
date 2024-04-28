@@ -124,8 +124,10 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("i").longOpt("input").hasArg().desc("A configuration file.").build());
 
 		// mode
-		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc("Execution Mode. Possible values: 'batch' (Batch mode), 'gui' (Graphical User Interface mode). Default value: 'gui'.").build());
-		
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc(
+				"Execution Mode. Possible values: 'batch' (Batch mode), 'gui' (Graphical User Interface mode). Default value: 'gui'.")
+				.build());
+
 		// output
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where output is written.").build());
@@ -169,17 +171,19 @@ public class Main {
 			throw new ParseException("In batch mode an input configuration file is required");
 		}
 	}
-	
+
 	private static void parse_mode_option(CommandLine line) throws ParseException {
 		String mode = line.getOptionValue("m");
-		
-		if(mode != null)
-		{
-			if(mode.equals("batch")) _mode = ExecMode.BATCH;
-			else if(mode.equals("gui")) _mode = ExecMode.GUI;
-			else throw new ParseException("Argumento de mode invalido");
-		}
-		else _mode = ExecMode.GUI;
+
+		if (mode != null) {
+			if (mode.equals("batch"))
+				_mode = ExecMode.BATCH;
+			else if (mode.equals("gui"))
+				_mode = ExecMode.GUI;
+			else
+				throw new ParseException("Argumento de mode invalido");
+		} else
+			_mode = ExecMode.GUI;
 	}
 
 	private static void parse_out_file_option(CommandLine line) throws ParseException {
@@ -247,23 +251,21 @@ public class Main {
 	private static void start_GUI_mode() throws Exception {
 		Simulator sim;
 		Controller controlador;
-		
-		if(_in_file != null)
-		{
+
+		if (_in_file != null) {
 			InputStream is = new FileInputStream(new File(_in_file));
 			JSONObject entrada = load_JSON_file(is);
 			is.close();
-			
-			sim = new Simulator(entrada.getInt("cols"), entrada.getInt("rows"), entrada.getInt("width"),entrada.getInt("height"), _facAnimales, _facRegiones);
+
+			sim = new Simulator(entrada.getInt("cols"), entrada.getInt("rows"), entrada.getInt("width"),
+					entrada.getInt("height"), _facAnimales, _facRegiones);
 			controlador = new Controller(sim);
 			controlador.load_data(entrada);
-		}
-		else 
-		{ 
-			sim = new Simulator(20 ,15 , 800, 600, _facAnimales, _facRegiones);
+		} else {
+			sim = new Simulator(20, 15, 800, 600, _facAnimales, _facRegiones);
 			controlador = new Controller(sim);
 		}
-		
+
 		SwingUtilities.invokeAndWait(() -> new MainWindow(controlador));
 	}
 

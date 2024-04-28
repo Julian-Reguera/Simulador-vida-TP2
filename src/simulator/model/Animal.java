@@ -25,7 +25,7 @@ public abstract class Animal implements AnimalInfo, Entity {
 
 	private double _energy; // private nunca baja de 0
 	private double _desire; // private se matiene entre 0 y 100
-	
+
 	public enum State {
 		NORMAL, MATE, HUNGER, DANGER, DEAD
 	}

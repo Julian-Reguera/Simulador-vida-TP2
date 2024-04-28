@@ -25,66 +25,66 @@ public class MainWindow extends JFrame {
 	}
 
 	private void initGUI() {
-	JPanel mainPanel = new JPanel(new BorderLayout());
-	this.setContentPane(mainPanel);
-	
-	_control = new ControlPanel(_ctrl);
-	mainPanel.add(_control,BorderLayout.PAGE_START);
-	_barraEstado = new StatusBar(_ctrl);
-	mainPanel.add(_barraEstado,BorderLayout.PAGE_END);
-	
-	// Definición del panel de tablas (usa un BoxLayout vertical)
-	JPanel contentPanel = new JPanel();
-	contentPanel.setLayout(new GridLayout(2,1,10,10)); //5 filas, 2 columnas, 3 de espacip, 3 de espacio
-	mainPanel.add(contentPanel, BorderLayout.CENTER);
-	
-	_tablaEspecies = new InfoTable("Species", new SpeciesTableModel(_ctrl));
-	_tablaEspecies.setPreferredSize(new Dimension(500, 250));
-	contentPanel.add(_tablaEspecies);
-	
-	_tablaRegiones = new InfoTable("Regions", new RegionsTableModel(_ctrl));
-	_tablaRegiones.setPreferredSize(new Dimension(500, 250));
-	contentPanel.add(_tablaRegiones);
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		this.setContentPane(mainPanel);
 
-	this.addWindowListener(new WindowListener(){
+		_control = new ControlPanel(_ctrl);
+		mainPanel.add(_control, BorderLayout.PAGE_START);
+		_barraEstado = new StatusBar(_ctrl);
+		mainPanel.add(_barraEstado, BorderLayout.PAGE_END);
 
-		@Override
-		public void windowOpened(WindowEvent e) {
+		// Definición del panel de tablas (usa un BoxLayout vertical)
+		JPanel contentPanel = new JPanel();
+		contentPanel.setLayout(new GridLayout(2, 1, 10, 10)); // 5 filas, 2 columnas, 3 de espacip, 3 de espacio
+		mainPanel.add(contentPanel, BorderLayout.CENTER);
 
-		}
+		_tablaEspecies = new InfoTable("Species", new SpeciesTableModel(_ctrl));
+		_tablaEspecies.setPreferredSize(new Dimension(500, 250));
+		contentPanel.add(_tablaEspecies);
 
-		@Override
-		public void windowClosing(WindowEvent e) {
-			ViewUtils.quit(MainWindow.this);
-		}
+		_tablaRegiones = new InfoTable("Regions", new RegionsTableModel(_ctrl));
+		_tablaRegiones.setPreferredSize(new Dimension(500, 250));
+		contentPanel.add(_tablaRegiones);
 
-		@Override
-		public void windowClosed(WindowEvent e) {
+		this.addWindowListener(new WindowListener() {
 
-		}
+			@Override
+			public void windowOpened(WindowEvent e) {
 
-		@Override
-		public void windowIconified(WindowEvent e) {
+			}
 
-		}
+			@Override
+			public void windowClosing(WindowEvent e) {
+				ViewUtils.quit(MainWindow.this);
+			}
 
-		@Override
-		public void windowDeiconified(WindowEvent e) {
+			@Override
+			public void windowClosed(WindowEvent e) {
 
-		}
+			}
 
-		@Override
-		public void windowActivated(WindowEvent e) {
-		}
+			@Override
+			public void windowIconified(WindowEvent e) {
 
-		@Override
-		public void windowDeactivated(WindowEvent e) {
-		}
-	});
-	
-	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-	pack();
-	setVisible(true);
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+		});
+
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		pack();
+		setVisible(true);
 	}
-	
+
 }
