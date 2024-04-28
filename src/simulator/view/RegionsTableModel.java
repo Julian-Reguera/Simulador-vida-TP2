@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
@@ -60,34 +61,44 @@ class RegionsTableModel extends AbstractTableModel implements EcoSysObserver {
 	/*METODOS DE LA INTERFAZ ECOSYSOBSERVER*/
 	@Override
 	public void onRegister(double time, MapInfo map, List<AnimalInfo> animals) {
-		_filas = new Object[map.get_cols()*map.get_rows()][_columnas.length];
-		actualizaFilas(map);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			_filas = new Object[map.get_cols()*map.get_rows()][_columnas.length];
+			actualizaFilas(map);
+			fireTableDataChanged();
+		});
 	}
 
 	@Override
 	public void onReset(double time, MapInfo map, List<AnimalInfo> animals) {
-		_filas = new Object[map.get_cols()*map.get_rows()][_columnas.length];
-		actualizaFilas(map);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			_filas = new Object[map.get_cols()*map.get_rows()][_columnas.length];
+			actualizaFilas(map);
+			fireTableDataChanged();
+		});
 	}
 
 	@Override
 	public void onAnimalAdded(double time, MapInfo map, List<AnimalInfo> animals, AnimalInfo a) {
-		actualizaFilas(map);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			actualizaFilas(map);
+			fireTableDataChanged();
+		});
 	}
 
 	@Override
 	public void onRegionSet(int row, int col, MapInfo map, RegionInfo r) {
-		_filas[row*map.get_cols() + col][2] = r.toString();
-		fireTableCellUpdated(row*map.get_cols() + col,2);
+		SwingUtilities.invokeLater(()->{
+			_filas[row*map.get_cols() + col][2] = r.toString();
+			fireTableCellUpdated(row*map.get_cols() + col,2);
+		});
 	}
 
 	@Override
 	public void onAvanced(double time, MapInfo map, List<AnimalInfo> animals, double dt) {
-		actualizaFilas(map);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			actualizaFilas(map);
+			fireTableDataChanged();
+		});
 	}
 	
 	private void actualizaFilas( MapInfo map)

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
@@ -62,20 +63,26 @@ class SpeciesTableModel extends AbstractTableModel implements EcoSysObserver {
 	/*METODOS DE LA INTERFAZ ECOSYSOBSERVER*/
 	@Override
 	public void onRegister(double time, MapInfo map, List<AnimalInfo> animals) {
-		actualizaAnimales(animals);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			actualizaAnimales(animals);
+			fireTableDataChanged();
+		});
 	}
 
 	@Override
 	public void onReset(double time, MapInfo map, List<AnimalInfo> animals) {
-		actualizaAnimales(animals); //aqui no se si quitar columnas
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			actualizaAnimales(animals);
+			fireTableDataChanged();
+		});
 	}
 
 	@Override
 	public void onAnimalAdded(double time, MapInfo map, List<AnimalInfo> animals, AnimalInfo a) {
-		anadirAnimal(a);
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			anadirAnimal(a);
+			fireTableDataChanged();
+		});
 	}
 
 	@Override
@@ -84,8 +91,10 @@ class SpeciesTableModel extends AbstractTableModel implements EcoSysObserver {
 
 	@Override
 	public void onAvanced(double time, MapInfo map, List<AnimalInfo> animals, double dt) {
-		actualizaAnimales(animals); //reinicio todo porque no se que animales han muerto y cuales no 
-		fireTableDataChanged();
+		SwingUtilities.invokeLater(()->{
+			actualizaAnimales(animals); //reinicio todo porque no se que animales han muerto y cuales no 
+			fireTableDataChanged();
+		});
 	}
 	
 	private void actualizaAnimales(List<AnimalInfo> animals)

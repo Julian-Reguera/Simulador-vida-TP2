@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
 import simulator.model.AnimalInfo;
@@ -68,30 +69,40 @@ class StatusBar extends JPanel implements EcoSysObserver {
 
 	@Override
 	public void onRegister(double time, MapInfo map, List<AnimalInfo> animals) {
-		_tiempo.setText(String.format(TIME_FORMAT, time));
-		_animales.setText(String.format(ANIMALS_FORMAT, animals.size()));
-		_dimensiones.setText(String.format(DIMENSION_FORMAT,map.get_width(), map.get_height(), map.get_cols(),map.get_rows()));
+		SwingUtilities.invokeLater(()->{
+			_tiempo.setText(String.format(TIME_FORMAT, time));
+			_animales.setText(String.format(ANIMALS_FORMAT, animals.size()));
+			_dimensiones.setText(String.format(DIMENSION_FORMAT,map.get_width(), map.get_height(), map.get_cols(),map.get_rows()));
+		});
 	}
 	
 	@Override
 	public void onReset(double time, MapInfo map, List<AnimalInfo> animals) {
-		_tiempo.setText(String.format(TIME_FORMAT, time));
-		_animales.setText(String.format(ANIMALS_FORMAT, animals.size()));
-		_dimensiones.setText(String.format(DIMENSION_FORMAT,map.get_width(), map.get_height(), map.get_cols(),map.get_rows()));
+		SwingUtilities.invokeLater(()->{
+			_tiempo.setText(String.format(TIME_FORMAT, time));
+			_animales.setText(String.format(ANIMALS_FORMAT, animals.size()));
+			_dimensiones.setText(String.format(DIMENSION_FORMAT,map.get_width(), map.get_height(), map.get_cols(),map.get_rows()));
+		});
 	}
 	
 	@Override
 	public void onAnimalAdded(double time, MapInfo map, List<AnimalInfo> animals, AnimalInfo a) {
-		_animales.setText(String.format(ANIMALS_FORMAT, animals.size()));
+		SwingUtilities.invokeLater(()->{
+			_animales.setText(String.format(ANIMALS_FORMAT, animals.size()));
+		});
 	}
 	
 	@Override
 	public void onRegionSet(int row, int col, MapInfo map, RegionInfo r) {
-		_dimensiones.setText(String.format(DIMENSION_FORMAT,map.get_width(), map.get_height(), map.get_cols(),map.get_rows()));
+		SwingUtilities.invokeLater(()->{
+			_dimensiones.setText(String.format(DIMENSION_FORMAT,map.get_width(), map.get_height(), map.get_cols(),map.get_rows()));
+		});
 	}
 	
 	@Override
 	public void onAvanced(double time, MapInfo map, List<AnimalInfo> animals, double dt) {
-		_tiempo.setText(String.format(TIME_FORMAT, time));
+		SwingUtilities.invokeLater(()->{
+			_tiempo.setText(String.format(TIME_FORMAT, time));
+		});
 	}
 }
